@@ -22,6 +22,9 @@
 
 StringArray: [String Array];
 
+DEBUG_INFO_TARGET_ALIAS_CODEVIEW: ["codeview"];
+DEBUG_INFO_TARGET_ALIAS_DWARF2:   ["dwarf2"];
+
 DEFAULT_STATIC_LOOP_LENGTH_LIMIT: [64];
 DEFAULT_RECURSION_DEPTH_LIMIT: [256];
 DEFAULT_PRE_RECURSION_DEPTH_LIMIT: [64];
@@ -58,6 +61,25 @@ ProcessorOptions: [{
   recursionDepthLimit:    DEFAULT_RECURSION_DEPTH_LIMIT;
   preRecursionDepthLimit: DEFAULT_PRE_RECURSION_DEPTH_LIMIT;
   linkerOptions:          String Array;
+
+  debugInfoTarget: {
+    Set: {
+      codeview: "!{i32 2, !\"CodeView\", i32 1}"      virtual;
+      dwarf2:   "!{i32 7, !\"Dwarf Version\", i32 2}" virtual;
+    };
+
+    toggleDwarf2: [
+      [data 0n8 =] "[.toggleDwarf2], invalid state" assert
+      1n8 !data
+    ];
+
+    private CALL: [
+      key: data Int32 cast;
+      key 0 = [Set 0 fieldRead] [Set 1 fieldRead] if
+    ];
+
+    private data: Nat8;
+  };
 }];
 
 ProcessorErrorInfo: [{

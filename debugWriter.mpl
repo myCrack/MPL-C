@@ -29,10 +29,10 @@ addDebugProlog: [
   String addDebugString
   processor.debugInfo.strings.size 1 - @processor.@debugInfo.@cuStringNumber set
 
-  indexCodeView: processor.debugInfo.lastId new;
+  indexDebugInfoTarget: processor.debugInfo.lastId new;
   processor.debugInfo.lastId 1 + @processor.@debugInfo.@lastId set
 
-  ("!" indexCodeView " = !{i32 2, !\"CodeView\", i32 1}" ) assembleString addDebugString
+  ("!" indexDebugInfoTarget " = " processor.options.debugInfoTarget) assembleString addDebugString
 
   indexDebug: processor.debugInfo.lastId new;
   processor.debugInfo.lastId 1 + @processor.@debugInfo.@lastId set
@@ -44,7 +44,7 @@ addDebugProlog: [
 
   ("!" indexPIC " = !{i32 1, !\"PIC Level\", i32 2}") assembleString addDebugString
 
-  ("!llvm.module.flags = !{!" indexCodeView ", !" indexDebug ", !" indexPIC "}") assembleString processor.debugInfo.strings.size 5 - @processor.@debugInfo.@strings.at set
+  ("!llvm.module.flags = !{!" indexDebugInfoTarget ", !" indexDebug ", !" indexPIC "}") assembleString processor.debugInfo.strings.size 5 - @processor.@debugInfo.@strings.at set
 
   index: processor.debugInfo.lastId new;
   processor.debugInfo.lastId 1 + @processor.@debugInfo.@lastId set

@@ -39,6 +39,7 @@ printInfo: [
   "  -begin_func <name>                  Name of begin function, default value is \"main\"" print LF print
   "  -call_trace                         Generate information about call trace" print LF print
   ("  -data_layout                        Specify data layout; default value is " DEFAULT_DATA_LAYOUT_32 " in 32-bit mode and " DEFAULT_DATA_LAYOUT_32 " in 64-bit mode" LF) printList
+  ("  -debug_info " DEBUG_INFO_TARGET_ALIAS_DWARF2 "                  Specify the target of the debug information; \"" DEBUG_INFO_TARGET_ALIAS_CODEVIEW "\" by default" LF) printList
   debugMemory [
     "  -debug_memory                       Produce memory usage information" print LF print
   ] when
@@ -183,6 +184,7 @@ checkedSaveString: [
     OPT_TRIPLE:                    [13 dynamic];
     OPT_DATA_LAYOUT:               [14 dynamic];
     OPT_HIDE_PREFIX:               [15 dynamic];
+    OPT_DEBUG_INFO_TARGET:         [16 dynamic];
 
     nextOption: OPT_ANY;
 
@@ -237,6 +239,7 @@ checkedSaveString: [
                   "-begin_func"                [OPT_BEGIN_FUNC                !nextOption]
                   "-call_trace"                [OPT_CALL_TRACE                !nextOption]
                   "-data_layout"               [OPT_DATA_LAYOUT               !nextOption]
+                  "-debug_info"                [OPT_DEBUG_INFO_TARGET         !nextOption]
                   debugMemory [
                     "-debug_memory"            [TRUE                          @options.!debugMemory]
                   ] when
@@ -331,6 +334,13 @@ checkedSaveString: [
               OPT_TRIPLE [
                 option toString @options.@triple set
                 TRUE !hasTriple
+                OPT_ANY !nextOption
+              ]
+              OPT_DEBUG_INFO_TARGET [
+                option DEBUG_INFO_TARGET_ALIAS_DWARF2 = [@options.@debugInfoTarget.toggleDwarf2] [
+                   ("Invalid argument value: " option LF) printList
+                   FALSE @success set
+                ] if
                 OPT_ANY !nextOption
               ]
               OPT_HIDE_PREFIX [
