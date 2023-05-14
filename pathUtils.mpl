@@ -30,11 +30,12 @@ extractClearPath: [
 ];
 
 simplifyPath: [
-  splittedPath: splitString;
+  origin:;
+  splittedPath: origin splitString;
   [
     splittedPath.success [
 
-      resultPath: String;
+      resultPath: origin "/" beginsWith ["/" toString] [String] if;
       resultFileName: String;
 
       splittedPath.chars.size 0 > [
