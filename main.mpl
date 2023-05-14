@@ -214,7 +214,8 @@ checkedSaveString: [
           addr: 0nx storageSize i 0ix cast 0nx cast * argv + Natx addressToReference;
           option:  addr makeStringViewByAddress;
           option @fullLine.cat
-          option extractClearPath @options.@mainPath set
+          # Let's make it to be empty path, then we can see what we'll get:
+          #option extractClearPath @options.@mainPath set
         ] [
           addr: 0nx storageSize i 0ix cast 0nx cast * argv + Natx addressToReference;
           option: addr makeStringViewByAddress;
