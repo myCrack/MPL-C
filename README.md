@@ -23,7 +23,3 @@ Make sure both binaries are accessible with your path settings. For example, `/u
 ## Usage
 
 Please execute `mplc` to see the usage documentation.
-
-## Documentation
-
-Documentation is a work in progress.
