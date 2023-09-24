@@ -24,4 +24,5 @@ jobs:
       with:
         name: mplc
         path: |
-          build/*.ll
+          build/mplc.ll
+          build/*.exe
