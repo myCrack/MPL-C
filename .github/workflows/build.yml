@@ -23,5 +23,4 @@ jobs:
       uses: actions/upload-artifact@main
       with:
         name: mplc
-        path: |
-          build/mplc.ll
+        path: build/mplc.ll
